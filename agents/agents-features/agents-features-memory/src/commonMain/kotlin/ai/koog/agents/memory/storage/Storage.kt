@@ -1,7 +1,5 @@
 package ai.koog.agents.memory.storage
 
-import ai.koog.agents.memory.providers.FileMetadata
-import ai.koog.agents.memory.providers.FileSystemProvider
 import ai.koog.rag.base.files.FileMetadata
 import ai.koog.rag.base.files.FileSystemProvider
 
