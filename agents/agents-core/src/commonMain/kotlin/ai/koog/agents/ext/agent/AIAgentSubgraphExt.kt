@@ -866,10 +866,10 @@ internal suspend fun <Output, OutputTransformed> AIAgentContext.executeFinishToo
 ): ReceivedToolResult {
     val toolDescription = finishTool.descriptor.description
     // Execute Finish tool directly and get a result
-    val encodedResult = try {
+    val (encodedResult, resultObject) = try {
         val args = finishTool.decodeArgs(toolCall.contentJson.toKoogJSONObject(), config.serializer)
         val toolResult = finishTool.execute(args = args)
-        finishTool.encodeResult(toolResult, config.serializer)
+        finishTool.encodeResult(toolResult, config.serializer) to toolResult
     } catch (e: CancellationException) {
         throw e
     } catch (e: Exception) {
@@ -883,6 +883,7 @@ internal suspend fun <Output, OutputTransformed> AIAgentContext.executeFinishToo
             content = "Failed to execute '${finishTool.name}' with error: ${e.message}'",
             resultKind = ToolResultKind.Failure(e),
             result = null,
+            resultObject = null
         )
     }
 
@@ -893,6 +894,7 @@ internal suspend fun <Output, OutputTransformed> AIAgentContext.executeFinishToo
         content = toolCall.content,
         resultKind = ToolResultKind.Success,
         toolDescription = toolDescription,
-        result = encodedResult
+        result = encodedResult,
+        resultObject = resultObject,
     )
 }

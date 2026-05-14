@@ -72,6 +72,7 @@ public class GenericAgentEnvironment(
                 content = "Tool with name '$toolName' failed to parse arguments due to the error: ${e.message}",
                 resultKind = ToolResultKind.Failure(e),
                 result = null,
+                resultObject = null
             )
         }
 
@@ -86,6 +87,7 @@ public class GenericAgentEnvironment(
                     content = "Tool with name '$toolName' not found in the tool registry. Use one of the available tools.",
                     resultKind = ToolResultKind.Failure(null),
                     result = null,
+                    resultObject = null
                 )
             }
 
@@ -106,6 +108,7 @@ public class GenericAgentEnvironment(
                 content = "Tool with name '$toolName' failed to parse arguments due to the error: ${e.message}",
                 resultKind = ToolResultKind.Failure(e),
                 result = null,
+                resultObject = null
             )
         }
 
@@ -123,6 +126,7 @@ public class GenericAgentEnvironment(
                 content = e.message,
                 resultKind = ToolResultKind.ValidationError(e),
                 result = null,
+                resultObject = null
             )
         } catch (e: Exception) {
             logger.error(e) { "Tool with name '$toolName' failed to execute with arguments: $toolArgs" }
@@ -134,7 +138,8 @@ public class GenericAgentEnvironment(
                 toolDescription = toolDescription,
                 content = "Tool with name '$toolName' failed to execute due to the error: ${e.message}!",
                 resultKind = ToolResultKind.Failure(e),
-                result = null
+                result = null,
+                resultObject = null
             )
         }
 
@@ -154,7 +159,8 @@ public class GenericAgentEnvironment(
                 toolDescription = toolDescription,
                 content = "Tool with name '$toolName' failed to serialize result due to the error: ${e.message}!",
                 resultKind = ToolResultKind.Failure(e),
-                result = null
+                result = null,
+                resultObject = null
             )
         }
 
@@ -165,7 +171,8 @@ public class GenericAgentEnvironment(
             toolDescription = toolDescription,
             content = content,
             resultKind = ToolResultKind.Success,
-            result = result
+            result = result,
+            resultObject = toolResult
         )
     }
 
